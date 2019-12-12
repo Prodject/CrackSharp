@@ -24,14 +24,15 @@ namespace CrackSharp.Core
             _cache = cache;
         }
 
-        public Task<string> DecryptAsync(string hash, int maxWordLength, string chars, CancellationToken token = default)
+        public Task<string> DecryptAsync(string hash, int maxWordLength, string chars = null,
+            CancellationToken token = default)
         {
             if (hash?.Length != 13 || !_stringValidator.IsMatch(hash))
                 throw new ArgumentException(
                     "Value must consist of exactly 13 chars that exist in the set [a-zA-Z0-9./].", nameof(hash));
 
-            if (maxWordLength < 1)
-                throw new ArgumentException("Value cannot be less than 1.", nameof(maxWordLength));
+            if (maxWordLength < 1 || maxWordLength > 8)
+                throw new ArgumentException("Value must be between 1 and 8.", nameof(maxWordLength));
 
             if (TryGetCachedValue(ref hash, out var result))
             {
