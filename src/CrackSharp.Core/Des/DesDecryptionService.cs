@@ -15,16 +15,16 @@ namespace CrackSharp.Core
 
         private readonly ConcurrentDictionary<(int, string, string), Task<string>> _runningItems =
             new ConcurrentDictionary<(int, string, string), Task<string>>();
-        private readonly ILogger<DesDecryptionService>? _logger;
-        private readonly IMemoryCache? _cache;
+        private readonly ILogger<DesDecryptionService> _logger;
+        private readonly IMemoryCache _cache;
 
-        public DesDecryptionService(ILogger<DesDecryptionService>? logger = null, IMemoryCache? cache = null)
+        public DesDecryptionService(ILogger<DesDecryptionService> logger = null, IMemoryCache cache = null)
         {
             _logger = logger;
             _cache = cache;
         }
 
-        public Task<string> DecryptAsync(string hash, int maxWordLength, string? chars, CancellationToken token = default)
+        public Task<string> DecryptAsync(string hash, int maxWordLength, string chars, CancellationToken token = default)
         {
             if (hash?.Length != 13 || !_stringValidator.IsMatch(hash))
                 throw new ArgumentException(
@@ -66,9 +66,9 @@ namespace CrackSharp.Core
                     ? Task.Run(decryption, token)
                     : _cache.GetOrCreateAsync(hash, cacheEntry => Task.Run(() =>
                     {
-                        var result = decryption();
-                        cacheEntry.Size = result.Length;
-                        return result;
+                        var r = decryption();
+                        cacheEntry.Size = r.Length;
+                        return r;
                     }, token));
             });
         }
@@ -135,7 +135,7 @@ namespace CrackSharp.Core
             return false;
         }
 
-        private static bool AreCharsValid(ref string? chars, out string newChars)
+        private static bool AreCharsValid(ref string chars, out string newChars)
         {
             newChars = chars == null || !_stringValidator.IsMatch(chars)
                 ? "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789"

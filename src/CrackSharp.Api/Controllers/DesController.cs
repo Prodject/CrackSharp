@@ -30,7 +30,7 @@ namespace CrackSharp.Api.Controllers
         public async Task<ActionResult<string>> Get(
             [RegularExpression("^[a-zA-Z0-9./]{13}$")] string hash,
             [Required, Range(1, int.MaxValue)] int maxWordLength,
-            string? chars)
+            string chars)
         {
             var logMessage = $"Decryption of {nameof(hash)} '{hash}' " +
                 $"with {nameof(maxWordLength)} = {maxWordLength} " +

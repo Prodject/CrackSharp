@@ -6,7 +6,7 @@ From this repository OpenShift can create a container with a running web service
 ### OpenShift S2I Deployment
 0. *Prerequisite*: you should have a project in OpenShift, if you don't - create one
 1. Go to OpenShift web console's Developer Catalog, select .NET Core item there
-2. Select your project, then `dotnet:3.1`, give your new app a name in lower case and specify [this repo's address](https://github.com/aannenko/CrackSharp.git) as a source, tick the `Create route` checkbox and click `Create`
+2. Select your project, then `dotnet:2.2`, give your new app a name in lower case and specify [this repo's address](https://github.com/aannenko/CrackSharp.git) as a source, tick the `Create route` checkbox and click `Create`
 3. Wait for the app to deploy
 4. Find your new route in OpenShift web console's Networking -> Routes menu, copy its address and test the app by opening `<route_address>/api/v1/des` in a browser.
 
