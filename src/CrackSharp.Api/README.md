@@ -27,7 +27,7 @@ Invoke-WebRequest -Uri "<address>/api/v1/des?hash=50.jPgLzVirkc" -UseBasicParsin
 
 #### Available params
 - `hash=<some_des_hash_here>` - the service will attempt to find a combination of characters behind the given DES hash.
-- `maxWordLength=<your_number_here>` (optional) - the service will check all character combinations (words) starting from 1 char-long and up to the provided word length before giving up. Defalut value is 8.
+- `maxWordLength=<your_number_here>` (optional) - the service will check all character combinations (words) starting from 1 char-long and up to the provided word length before giving up. Defalut value is `8`.
 - `chars=abcXYZ` (optional) - the service will only build combinations from these characters. Default value is `abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789`.
 
 ### Remarks
