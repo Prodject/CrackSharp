@@ -21,14 +21,14 @@ From this repository OpenShift can create a container with a running web service
 ### Usage
 1. Execute the following command in PowerShell substituting `<address>` with the appropriate value:
 ``` PowerShell
-Invoke-WebRequest -Uri "<address>/api/v1/des?maxWordLength=4&hash=50.jPgLzVirkc" -UseBasicParsing -TimeoutSec 30
+Invoke-WebRequest -Uri "<address>/api/v1/des?hash=50.jPgLzVirkc" -UseBasicParsing -TimeoutSec 30
 ```
 2. *Output*: you will almost immediately see `hi` - that's the word behind the DES hash `50.jPgLzVirkc`
 
 #### Available params
-- `hash=<some_des_hash_here>` - the service will attempt to find a combination of characters behind the given DES hash. It will tell you if the hash is invalid.
-- `maxWordLength=<your_number_here>` - the service will check all character combinations (words) starting from 1 char-long and up to the provided word length before giving up. The value shoud be between 1 and 8.
-- `chars=abcXYZ` (optional) - the service will only build combinations from these characters. Default value for `chars` is `abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789`.
+- `hash=<some_des_hash_here>` - the service will attempt to find a combination of characters behind the given DES hash.
+- `maxWordLength=<your_number_here>` (optional) - the service will check all character combinations (words) starting from 1 char-long and up to the provided word length before giving up. Defalut value is 8.
+- `chars=abcXYZ` (optional) - the service will only build combinations from these characters. Default value is `abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789`.
 
 ### Remarks
 1. Primary goal of each request to this web service is to decrypt the specified DES hash. It means that the parameters `maxWordLength` and `chars` will be ignored if the service already knows a decrypted value of the hash. Also if two requests to decrypt the same hash are made at the same moment but with different values for `chars` and/or `maxWordLength`, two separate decryption tasks will start and each task will periodically check if the hash is already decrypted (and cached) by the other task - in which case it will immediately return decrypted value even if it's not composable from the specified `chars` or is longer than `maxWordLength`.
