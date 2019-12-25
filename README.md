@@ -1,4 +1,4 @@
-[![Travis](https://travis-ci.org/aannenko/CrackSharp.svg?branch=dotnetcore-2.2)](https://travis-ci.org/aannenko/CrackSharp)
+![](https://github.com/aannenko/CrackSharp/workflows/Build/badge.svg?branch=dotnetcore-2.2)
 
 # CrackSharp
 Use code in this repository to build and run .NET Core applications that are able to efficiently decrypt DES hashes. Decryption process is based on brute-force method.
